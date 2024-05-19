@@ -12,8 +12,12 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
+
 class FileStorage:
-    """Serializes instances to a JSON file and deserializes JSON file to instances"""
+    """
+    Serializes instances to a JSON
+    file and deserializes JSON file to instances
+    """
     __file_path = "file.json"
     __objects = {}
 
