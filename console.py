@@ -11,6 +11,7 @@ from models.place import Place
 from models.review import Review
 from models import storage
 
+
 class HBNBCommand(cmd.Cmd):
     """Command interpreter for HBNB"""
     prompt = "(hbnb) "
@@ -38,7 +39,10 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id"""
+        """
+        Creates a new instance of BaseModel,
+        saves it (to the JSON file) and prints the id
+        """
         if not arg:
             print("** class name missing **")
             return
@@ -50,7 +54,10 @@ class HBNBCommand(cmd.Cmd):
         print(new_instance.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on the class name and id"""
+        """
+        Prints the string representation of
+        an instance based on the class name and id
+        """
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -68,7 +75,7 @@ class HBNBCommand(cmd.Cmd):
         print(storage.all()[key])
 
     def do_destroy(self, arg):
-        """Deletes an instance based on the class name and id"""
+        """Deletes an instance on the class name and id"""
         args = arg.split()
         if not args:
             print("** class name missing **")
@@ -87,7 +94,10 @@ class HBNBCommand(cmd.Cmd):
         storage.save()
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name"""
+        """
+        Prints all string representation of
+        all instances based or not on the class name
+        """
         if arg and arg not in self.classes:
             print("** class doesn't exist **")
             return
@@ -99,7 +109,10 @@ class HBNBCommand(cmd.Cmd):
         print(result)
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating attribute"""
+        """
+        Updates an instance based on the class
+        name and id by adding or updating attribute
+        """
         args = arg.split(maxsplit=3)
         if not args:
             print("** class name missing **")
@@ -166,7 +179,10 @@ class HBNBCommand(cmd.Cmd):
         if arg not in self.classes:
             print("** class doesn't exist **")
             return
-        count = sum(1 for obj in storage.all().values() if obj.__class__.__name__ == arg)
+        count = sum(
+            1 for obj in storage.all().values()
+            if obj.__class__.__name__ == arg
+        )
         print(count)
 
     def default(self, line):
@@ -209,7 +225,9 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             return
 
-        match_update_dict = re.fullmatch(r'(\w+)\.update\((.+), (.+)\)', line)
+        match_update_dict = re.fullmatch(
+            r'(\w+)\.update\((.+), (.+)\)', line
+        )
         if match_update_dict:
             class_name = match_update_dict.group(1)
             instance_id = match_update_dict.group(2).strip('"')
@@ -220,19 +238,24 @@ class HBNBCommand(cmd.Cmd):
                 print("** class doesn't exist **")
             return
 
-        match_update = re.fullmatch(r'(\w+)\.update\((.+), (.+), (.+)\)', line)
+        match_update = re.fullmatch(
+            r'(\w+)\.update\((.+), (.+), (.+)\)', line
+        )
         if match_update:
             class_name = match_update.group(1)
             instance_id = match_update.group(2).strip('"')
             attr_name = match_update.group(3).strip('"')
             attr_value = match_update.group(4).strip('"')
             if class_name in self.classes:
-                self.do_update(f'{class_name} {instance_id} {attr_name} {attr_value}')
+                self.do_update(
+                    f'{class_name} {instance_id} {attr_name} {attr_value}'
+                )
             else:
                 print("** class doesn't exist **")
             return
 
         print(f"*** Unknown syntax: {line}")
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
