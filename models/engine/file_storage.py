@@ -6,20 +6,20 @@ Defines a `FileStorage` class.
 import json
 from models.base_model import BaseModel
 from models.user import User
-
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 class FileStorage:
-    """
-    Serializes instances to a JSON file and
-    deserializes JSON file to instances
-    """
-
+    """Serializes instances to a JSON file and deserializes JSON file to instances"""
     __file_path = "file.json"
     __objects = {}
 
     def all(self):
         """Returns the dictionary __objects"""
-        return FileStorage.__objects
+        return self.__objects
 
     def new(self, obj):
         """Sets in __objects the obj with key <obj class name>.id"""
@@ -27,7 +27,7 @@ class FileStorage:
         self.__objects[key] = obj
 
     def save(self):
-        """Serializes __objects to the JSON file (path: __file_path)"""
+        """Serializes __objects to the JSON file"""
         with open(self.__file_path, 'w') as f:
             obj_dict = {
                 key: obj.to_dict()
@@ -50,3 +50,8 @@ class FileStorage:
 
 globals()["BaseModel"] = BaseModel
 globals()["User"] = User
+globals()["State"] = State
+globals()["City"] = City
+globals()["Amenity"] = Amenity
+globals()["Place"] = Place
+globals()["Review"] = Review
